@@ -1,3 +1,5 @@
+# CORRE EN LA ESTACIÓN TERRENA
+
 import socket
 import sys
 

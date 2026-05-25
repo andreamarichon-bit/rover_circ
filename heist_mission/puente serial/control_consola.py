@@ -1,4 +1,3 @@
-# control_consola_base.py
 # CORRE EN LA LAPTOP (ESTACIÓN TERRENA)
 import socket
 import sys

@@ -1,4 +1,3 @@
-# puente_consola.py
 # CORRE EN EL ROVER (PUENTE ENTRE RED Y CONSOLA COMPETENCIA XLR3)
 import socket
 import sys
@@ -30,17 +29,15 @@ def iniciar_puente_consola():
             IP_ROVER = "0.0.0.0"  # Escucha en toda la red si es producción real
             print(f"🔌 Conectado físicamente al cable XLR3 en {PUERTO_SERIAL}")
         except Exception as e:
-            print(f"⚠️ Puerto {PUERTO_SERIAL} ocupado o no disponible. Forzando MODO SIMULACIÓN de Consola.")
+            print(f"Puerto {PUERTO_SERIAL} ocupado o no disponible. INICIANDO MODO SIMULACIÓN de Consola.")
     else:
-        print("🖥️ Librería 'pyserial' no instalada. Forzando MODO SIMULACIÓN de Consola.")
+        print("Librería 'pyserial' no instalada. INICIANDO MODO SIMULACIÓN de Consola.")
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((IP_ROVER, PUERTO_RED))
-    
-    print("==================================================")
-    print(f"   🤖 PUENTE SERIAL XLR3 (HARDWARE REAL: {hardware_real})")
-    print("   Esperando señal de la Estación Terrena...")
-    print("==================================================")
+
+    print(f"PUENTE SERIAL XLR3 (HARDWARE REAL: {hardware_real})")
+    print("Esperando señal de la Estación Terrena...")
 
     direccion_base = None
     loggeado = False
@@ -63,17 +60,17 @@ def iniciar_puente_consola():
     if hardware_real:
         threading.Thread(target=leer_cable_serial_fisico, daemon=True).start()
 
-    # Bucle principal: Recibe lo que tú tecleas desde la Estación Terrena
+    # Bucle principal: Recibe lo que se tecleas desde la Estación Terrena
     while True:
         data, addr = sock.recvfrom(1024)
-        direccion_base = addr  # Guarda tu IP para saber a dónde responder
+        direccion_base = addr  # Guarda IP para saber a dónde responder
         comando_usuario = data.decode('utf-8')
 
         # CASO REAL: Reenviar directamente al cable de la competencia
         if hardware_real and arduino_serial and arduino_serial.is_open:
             arduino_serial.write(data)
         
-        # CASO SIMULACIÓN: Consola de seguridad interactiva para tus pruebas de software
+        # CASO SIMULACIÓN: Consola de seguridad interactiva para pruebas de software
         else:
             comando_limpio = comando_usuario.strip()
             if not comando_limpio:
