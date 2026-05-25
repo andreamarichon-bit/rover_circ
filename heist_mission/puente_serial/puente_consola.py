@@ -88,7 +88,7 @@ def iniciar_puente_consola():
                 if comando_limpio == "ls":
                     respuesta = "\nclearance.txt  vault_logs/  secret_code.txt\n" + prompt
                 elif comando_limpio == "cat secret_code.txt":
-                    respuesta = "\n====================================\n CÓDIGO DE LA BÓVEDA: 7412-9630-A\n====================================\n" + prompt
+                    respuesta = "\n CÓDIGO DE LA BÓVEDA: 7412-9630-A\n" + prompt
                 elif comando_limpio == "help":
                     respuesta = "\nComandos disponibles: ls, cat secret_code.txt, clear, logout\n" + prompt
                 elif comando_limpio == "logout":
