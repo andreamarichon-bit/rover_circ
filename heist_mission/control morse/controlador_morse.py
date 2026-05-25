@@ -27,7 +27,6 @@ def iniciar_controlador_rover():
     sock.bind((IP_ROVER, PUERTO))
 
     print(f"CONTROLADOR MORSE (SIMULACIÓN: {SIMULACION})")
-    print(f"Cumpliendo estándar ITU-R M.1677-1")
 
     try:
         while True:
@@ -37,7 +36,7 @@ def iniciar_controlador_rover():
             print(f"\nDatos recibidos desde {addr[0]}: '{cadena_morse}'")
             print("-" * 50)
             
-            # Reemplazamos los triples espacios de palabras por un token especial transitorio
+            # ReemplazO de los triples espacios de palabras por un token especial transitorio
             cadena_procesada = cadena_morse.replace('   ', ' W ')
             elementos = cadena_procesada.split(' ')
             
@@ -47,7 +46,7 @@ def iniciar_controlador_rover():
                 # Caso A: Cambio de palabra reglamentario (7 dots en total)
                 if elemento == 'W':
                     if SIMULACION:
-                        print(f"[ESPACIADO ENTRE PALABRAS]               [Espera: {DIT*7*1000:.1f}ms]")
+                        print(f"[ESPACIADO ENTRE PALABRAS]---------------[Espera: {DIT*7*1000:.1f}ms]")
                     time.sleep(DIT * 7)
                     
                 # Caso B: Procesar una letra completa (puntos y rayas)
@@ -75,11 +74,11 @@ def iniciar_controlador_rover():
                             
                     # Espacio reglamentario al terminar la letra completa (3 dots)
                     if SIMULACION:
-                        print(f"[ESPACIADO ENTRE LETRAS]                 [Espera: {DIT*3*1000:.1f}ms]")
+                        print(f"[ESPACIADO ENTRE LETRAS]---------------[Espera: {DIT*3*1000:.1f}ms]")
                     time.sleep(DIT * 3)
             
             print("-" * 50)
-            print("Transmisión finalizada.")
+            print("Fin de transmisión")
 
     except KeyboardInterrupt:
         print("\nApagando controlador.")

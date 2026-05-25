@@ -3,7 +3,7 @@
 import socket
 import sys
 
-# Diccionario Oficial Completo basado en la Recomendación ITU-R M.1677-1
+# Diccionario Oficial Completo basado en ITU-R M.1677-1
 DICCIONARIO_MORSE = {
     # Letras
     'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
@@ -38,7 +38,7 @@ def iniciar_base():
     
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     
-    print("GENERADOR MORSE (ITU)")
+    print("GENERADOR MORSE")
     print(f"IP: {IP_DESTINO}")
 
     while True:
@@ -51,13 +51,9 @@ def iniciar_base():
         frase_traducida = []
         
         for palabra in palabras:
-            # Traducir los caracteres válidos de cada palabra
-            letras_traducidas = [DICCIONARIO_MORSE[c] for c in palabra if c in DICCIONARIO_MORSE]
-            # Las letras de una misma palabra se separan por un espacio (3 puntos en el rover)
-            frase_traducida.append(' '.join(letras_traducidas))
-            
-        # Las palabras entre si se unen con '   ' (tres espacios para indicar cambio de palabra)
-        cadena_morse = '   '.join(frase_traducida)
+            letras_traducidas = [DICCIONARIO_MORSE[c] for c in palabra if c in DICCIONARIO_MORSE] # Traducir los caracteres válidos de cada palabra
+            frase_traducida.append(' '.join(letras_traducidas)) # Las letras de una misma palabra se separan por un espacio (3 puntos en el rover)
+        cadena_morse = '   '.join(frase_traducida) # Las palabras entre si se unen con 3 espacios para indicar cambio de palabra
         
         print(f"Traducción: {cadena_morse}")
         sock.sendto(cadena_morse.encode('utf-8'), (IP_DESTINO, PUERTO))

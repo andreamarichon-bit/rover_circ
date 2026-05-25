@@ -1,11 +1,11 @@
-# CORRE EN EL ROVER (PUENTE ENTRE RED Y CONSOLA COMPETENCIA XLR3)
+# CORRE EN EL ROVER (PUENTE ENTRE RED Y CONSOLA CON XLR3)
 import socket
 import sys
 import time
 import threading
 
 def iniciar_puente_consola():
-    # Detectar de forma local si la librería serial está disponible
+    # Detecta de forma local si la librería serial está disponible
     try:
         import serial
         libreria_disponible = True
@@ -26,8 +26,8 @@ def iniciar_puente_consola():
         try:
             arduino_serial = serial.Serial(PUERTO_SERIAL, BAUD_RATE, timeout=0.1)
             hardware_real = True
-            IP_ROVER = "0.0.0.0"  # Escucha en toda la red si es producción real
-            print(f"🔌 Conectado físicamente al cable XLR3 en {PUERTO_SERIAL}")
+            IP_ROVER = "0.0.0.0"  # Escucha en toda la red
+            print(f"Conectado al XLR3 en {PUERTO_SERIAL}")
         except Exception as e:
             print(f"Puerto {PUERTO_SERIAL} ocupado o no disponible. INICIANDO MODO SIMULACIÓN de Consola.")
     else:
@@ -37,7 +37,7 @@ def iniciar_puente_consola():
     sock.bind((IP_ROVER, PUERTO_RED))
 
     print(f"PUENTE SERIAL XLR3 (HARDWARE REAL: {hardware_real})")
-    print("Esperando señal de la Estación Terrena...")
+    print("Esperando señal...")
 
     direccion_base = None
     loggeado = False
@@ -60,7 +60,7 @@ def iniciar_puente_consola():
     if hardware_real:
         threading.Thread(target=leer_cable_serial_fisico, daemon=True).start()
 
-    # Bucle principal: Recibe lo que se tecleas desde la Estación Terrena
+    # Bucle principal: Recibe lo que se tecleas desde la estacion terrena
     while True:
         data, addr = sock.recvfrom(1024)
         direccion_base = addr  # Guarda IP para saber a dónde responder

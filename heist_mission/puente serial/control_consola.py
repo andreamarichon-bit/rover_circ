@@ -4,8 +4,7 @@ import sys
 import threading
 import time
 
-def escuchar_rover(sock):
-    """Función en segundo plano para recibir y mostrar lo que envía el Rover."""
+def escuchar_rover(sock): # Función en segundo plano para recibir y mostrar lo que envía el Rover
     while True:
         try:
             data, _ = sock.recvfrom(4096)
@@ -23,29 +22,25 @@ def iniciar_control_base():
         
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     
-    print("==================================================")
-    print("   💻 TERMINAL REMOTA - INTERFAZ DE CONSOLA       ")
-    print(f"   Conectado al puente inalámbrico: {IP_DESTINO}:{PUERTO}")
-    print("   (Escribe tus comandos de Linux aquí)           ")
-    print("==================================================")
+    print("Terminal de Control")
+    print(f"Conectado al puente inalámbrico: {IP_DESTINO}:{PUERTO}")
+    print("Comandos de Linux:")
     
-    # 1. Lanzamos el hilo receptor primero
+    # Hilo receptor para mostrar lo que el Rover envía por el cable XLR3 (respuestas, prompts, etc.)
     hilo_receptor = threading.Thread(target=escuchar_rover, args=(sock,), daemon=True)
     hilo_receptor.start()
     
-    # 2. AUTOMÁTICO: Forzar un envío inicial para despertar al Rover y vincular la IP
-    # Le mandamos un salto de línea para que el Rover reaccione inmediatamente
-    time.sleep(0.2) # Pequeña pausa de estabilidad
+    # Forzar un envío inicial para despertar al Rover y vincular la IP
+    # Salto de línea para que el Rover reaccione al recibir algo
+    time.sleep(0.2) # Pequeña pausa de estabilidad antes de enviar el primer comando
     sock.sendto(b"\n", (IP_DESTINO, PUERTO))
 
-    # 3. Bucle de comandos continuo
+    # Bucle de comandos continuo 
     while True:
         try:
             comando = input()
             if comando.lower() == "exit": break
-            
-            # Mandamos lo que teclees con su salto de línea reglamentario
-            sock.sendto(f"{comando}\n".encode('utf-8'), (IP_DESTINO, PUERTO))
+            sock.sendto(f"{comando}\n".encode('utf-8'), (IP_DESTINO, PUERTO)) # Mandamos con su salto de línea reglamentario 
         except (KeyboardInterrupt, SystemExit):
             break
 
