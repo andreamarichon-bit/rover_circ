@@ -24,6 +24,7 @@ heist_mission/
 └── apagador_de_luces/          # Ground station + Rover
     ├── control_luces.py        # Ground station
     └── apagador_luces.py       # Rover (RPi/ESP32)
+```
 ---
 
 ## Scripts
