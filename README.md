@@ -10,18 +10,20 @@ computer (Raspberry Pi / ESP32 on the rover).
 ---
 
 ## Repository Structure
+
+```text
 heist_mission/
-├── calculadora_cables/      # Ground station only
+├── calculadora_cables/         # Ground station only
 │   └── calculadora_cables.py
-├── puente_serial/           # Ground station + Rover
-│   ├── control_consola.py   # Ground station
-│   └── puente_consola.py    # Rover (RPi/ESP32)
-├── control_morse/           # Ground station + Rover
-│   ├── generador_morse.py   # Ground station
-│   └── controlador_morse.py # Rover (RPi/ESP32)
-└── apagador_de_luces/       # Ground station + Rover
-├── control_luces.py     # Ground station
-└── apagador_luces.py    # Rover (RPi/ESP32)
+├── puente_serial/              # Ground station + Rover
+│   ├── control_consola.py      # Ground station
+│   └── puente_consola.py       # Rover (RPi/ESP32)
+├── control_morse/              # Ground station + Rover
+│   ├── generador_morse.py      # Ground station
+│   └── controlador_morse.py    # Rover (RPi/ESP32)
+└── apagador_de_luces/          # Ground station + Rover
+    ├── control_luces.py        # Ground station
+    └── apagador_luces.py       # Rover (RPi/ESP32)
 ---
 
 ## Scripts
