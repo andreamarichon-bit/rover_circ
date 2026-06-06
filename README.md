@@ -17,13 +17,13 @@ heist_mission/
 │   └── calculadora_cables.py
 ├── puente_serial/              # Ground station + Rover
 │   ├── control_consola.py      # Ground station
-│   └── puente_consola.py       # Rover (RPi/ESP32)
+│   └── puente_consola.py       # Rover (RPi)
 ├── control_morse/              # Ground station + Rover
 │   ├── generador_morse.py      # Ground station
-│   └── controlador_morse.py    # Rover (RPi/ESP32)
+│   └── controlador_morse.py    # Rover (RPi)
 └── apagador_de_luces/          # Ground station + Rover
     ├── control_luces.py        # Ground station
-    └── apagador_luces.py       # Rover (RPi/ESP32)
+    └── apagador_luces.py       # Rover (RPi)
 ```
 ---
 
